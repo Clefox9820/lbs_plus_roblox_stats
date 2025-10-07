@@ -19,7 +19,8 @@
 
         .iframe-container {
             width: 100vw;
-            height: 1000vh;
+            height: 100dvh; /* Dynamic viewport height */
+            height: 100vh; /* Fallback para navegadores antiguos */
             position: relative;
         }
 
@@ -37,7 +38,8 @@
             top: 0;
             left: 0;
             width: 100vw;
-            height: 100vh;
+            height: 100dvh; /* Dynamic viewport height */
+            height: 100vh; /* Fallback */
             background-color: #1a1a1a;
             color: white;
             flex-direction: column;
@@ -124,7 +126,8 @@
 
             iframe {
                 width: 600px;
-                height: 100vh;
+                height: 100dvh; /* Dynamic viewport height */
+                height: 100vh; /* Fallback */
             }
         }
 
@@ -168,6 +171,12 @@
     </div>
 
     <script>
+        // Ajustar altura del viewport dinámicamente
+        function adjustViewportHeight() {
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+
         // Verificar orientación al cargar
         function checkOrientation() {
             const overlay = document.getElementById('orientationOverlay');
@@ -189,15 +198,25 @@
         }
 
         // Verificar al cargar la página
+        adjustViewportHeight();
         checkOrientation();
 
         // Verificar cuando cambia la orientación
         window.addEventListener('orientationchange', function() {
-            setTimeout(checkOrientation, 100);
+            setTimeout(() => {
+                adjustViewportHeight();
+                checkOrientation();
+            }, 100);
         });
 
         // También verificar al redimensionar (para navegadores que no soportan orientationchange)
-        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('resize', () => {
+            adjustViewportHeight();
+            checkOrientation();
+        });
+
+        // Ajustar cuando aparece/desaparece la barra del navegador
+        window.addEventListener('scroll', adjustViewportHeight);
     </script>
 </body>
 
