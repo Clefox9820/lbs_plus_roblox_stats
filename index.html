@@ -1,156 +1,113 @@
+```
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Looker Studio</title>
+    <title>Reporte Looker Studio</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            max-width: 1200px;
-            width: 100%;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 2em;
-        }
-        
-        .iframe-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 54%;
-            height: 0;
             overflow: hidden;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        
-        .iframe-wrapper iframe {
+
+        .iframe-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        iframe {
             position: absolute;
             top: 0;
             left: 0;
+            border: 0;
             width: 100%;
             height: 100%;
-            border: 0;
         }
-        
-        /* Tablets y dispositivos medianos */
-        @media (max-width: 1024px) {
-            .container {
-                padding: 25px;
-                max-width: 95%;
-            }
-            
-            h1 {
-                font-size: 1.8em;
-            }
-            
-            .iframe-wrapper {
-                padding-bottom: 60%;
-            }
+
+        /* Mensaje para rotar en orientación vertical */
+        .rotate-message {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #1a1a1a;
+            color: white;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            text-align: center;
+            padding: 20px;
         }
-        
-        /* Móviles */
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                padding: 10px;
-                border-radius: 6px;
-                max-height: 95vh;
+
+        .rotate-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: rotate 2s infinite;
+        }
+
+        @keyframes rotate {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(90deg); }
+        }
+
+        .rotate-message h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .rotate-message p {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        /* Mostrar mensaje solo en orientación vertical en móviles */
+        @media (orientation: portrait) and (max-width: 768px) {
+            .rotate-message {
                 display: flex;
-                flex-direction: column;
             }
-            
-            h1 {
-                font-size: 1.3em;
-                margin-bottom: 10px;
-                flex-shrink: 0;
-            }
-            
-            .iframe-wrapper {
-                padding-bottom: 0;
-                height: calc(95vh - 80px);
-                flex-grow: 1;
-                border-radius: 6px;
-            }
-            
-            .iframe-wrapper iframe {
-                position: relative;
+
+            .iframe-container {
+                display: none;
             }
         }
-        
-        /* Móviles pequeños */
-        @media (max-width: 480px) {
-            body {
-                padding: 5px;
-            }
-            
-            .container {
-                padding: 8px;
-                max-height: 98vh;
-            }
-            
-            h1 {
-                font-size: 1.2em;
-                margin-bottom: 8px;
-            }
-            
-            .iframe-wrapper {
-                height: calc(98vh - 70px);
-            }
-        }
-        
-        /* Permitir scroll horizontal en móviles si es necesario */
-        @media (max-width: 768px) {
-            .iframe-wrapper {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
+
+        /* En landscape todo funciona normal */
+        @media (orientation: landscape) {
+            .iframe-container {
+                overflow: hidden;
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Dashboard de Análisis</h1>
-        <div class="iframe-wrapper">
-            <iframe 
-                width="600" 
-                height="443" 
-                src="https://lookerstudio.google.com/embed/reporting/6881e20e-51e1-47e5-8409-27bb6e2f55a5/page/9IjaF" 
-                frameborder="0" 
-                style="border:0" 
-                allowfullscreen 
-                sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-                loading="lazy"
-                title="Dashboard de Looker Studio">
-            </iframe>
-        </div>
+    <!-- Mensaje para rotar el dispositivo -->
+    <div class="rotate-message">
+        <div class="rotate-icon">📱 ↻</div>
+        <h2>Rota tu dispositivo</h2>
+        <p>Por favor, gira tu dispositivo a modo horizontal para una mejor experiencia</p>
+    </div>
+
+    <!-- Contenedor del iframe -->
+    <div class="iframe-container">
+        <iframe
+            src="https://lookerstudio.google.com/embed/reporting/b0e23d97-56cc-42a0-93d5-3311070aa912/page/p_p94htbkxwd"
+            allowfullscreen
+            sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
+        </iframe>
     </div>
 </body>
+
 </html>
+```
