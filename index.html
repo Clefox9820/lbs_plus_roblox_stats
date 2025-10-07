@@ -80,18 +80,23 @@
             }
             
             .container {
-                padding: 15px;
+                padding: 10px;
                 border-radius: 6px;
+                max-height: 95vh;
+                display: flex;
+                flex-direction: column;
             }
             
             h1 {
                 font-size: 1.3em;
-                margin-bottom: 15px;
+                margin-bottom: 10px;
+                flex-shrink: 0;
             }
             
             .iframe-wrapper {
                 padding-bottom: 0;
-                height: 70vh;
+                height: calc(95vh - 80px);
+                flex-grow: 1;
                 border-radius: 6px;
             }
             
@@ -103,20 +108,21 @@
         /* Móviles pequeños */
         @media (max-width: 480px) {
             body {
-                padding: 8px;
+                padding: 5px;
             }
             
             .container {
-                padding: 12px;
+                padding: 8px;
+                max-height: 98vh;
             }
             
             h1 {
                 font-size: 1.2em;
-                margin-bottom: 12px;
+                margin-bottom: 8px;
             }
             
             .iframe-wrapper {
-                height: 75vh;
+                height: calc(98vh - 70px);
             }
         }
         
@@ -135,8 +141,8 @@
         <div class="iframe-wrapper">
             <iframe 
                 width="600" 
-                height="324" 
-                src="https://lookerstudio.google.com/embed/reporting/b0e23d97-56cc-42a0-93d5-3311070aa912/page/p_p94htbkxwd" 
+                height="443" 
+                src="https://lookerstudio.google.com/embed/reporting/6881e20e-51e1-47e5-8409-27bb6e2f55a5/page/9IjaF" 
                 frameborder="0" 
                 style="border:0" 
                 allowfullscreen 
