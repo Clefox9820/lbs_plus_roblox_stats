@@ -76,14 +76,9 @@ window.addEventListener('DOMContentLoaded', function() {
     adjustViewportHeight();
     checkOrientationAndUpdateIframe();
 
-    // Determinar duración de pantalla de carga según orientación
-    // El iframe se carga en paralelo debajo de la pantalla de carga
-    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
-    const isMobile = window.innerWidth <= 768;
-    const loadingDuration = (isPortrait || isMobile) ? 15000 : 5000; // 15s móvil/vertical, 5s escritorio
-
-    // Ocultar pantalla de carga después del tiempo determinado
-    setTimeout(hideLoadingScreen, loadingDuration);
+    // Ocultar pantalla de carga después de 4 segundos
+    // Looker Studio tiene su propia pantalla de carga interna
+    setTimeout(hideLoadingScreen, 4000);
 });
 
 // Verificar cuando cambia la orientación
