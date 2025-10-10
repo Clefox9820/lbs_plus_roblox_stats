@@ -60,10 +60,29 @@ function hideTutorialButton(event) {
     button.classList.add('hidden');
 }
 
+// Ocultar pantalla de carga
+function hideLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    loadingScreen.classList.add('hide');
+
+    // Eliminar del DOM después de la transición
+    setTimeout(() => {
+        loadingScreen.style.display = 'none';
+    }, 500);
+}
+
 // Inicializar cuando la página cargue
 window.addEventListener('DOMContentLoaded', function() {
     adjustViewportHeight();
     checkOrientationAndUpdateIframe();
+
+    // Determinar duración de pantalla de carga según orientación
+    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+    const isMobile = window.innerWidth <= 768;
+    const loadingDuration = (isPortrait || isMobile) ? 8000 : 5000; // 8s móvil/vertical, 5s escritorio
+
+    // Ocultar pantalla de carga después del tiempo determinado
+    setTimeout(hideLoadingScreen, loadingDuration);
 });
 
 // Verificar cuando cambia la orientación
