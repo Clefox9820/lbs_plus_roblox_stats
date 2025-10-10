@@ -71,18 +71,51 @@ function hideLoadingScreen() {
     }, 500);
 }
 
+// Variables para controlar la carga
+let iframeLoaded = false;
+let minTimeElapsed = false;
+
+// Función que se ejecuta cuando ambas condiciones se cumplen
+function checkAndHideLoading() {
+    if (iframeLoaded && minTimeElapsed) {
+        hideLoadingScreen();
+    }
+}
+
 // Inicializar cuando la página cargue
 window.addEventListener('DOMContentLoaded', function() {
     adjustViewportHeight();
     checkOrientationAndUpdateIframe();
 
-    // Determinar duración de pantalla de carga según orientación
+    // Determinar duración mínima según orientación
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
     const isMobile = window.innerWidth <= 768;
-    const loadingDuration = (isPortrait || isMobile) ? 8000 : 5000; // 8s móvil/vertical, 5s escritorio
+    const minLoadingTime = (isPortrait || isMobile) ? 3000 : 2000; // 3s móvil/vertical, 2s escritorio
+    const maxLoadingTime = (isPortrait || isMobile) ? 12000 : 10000; // Máximo 12s móvil, 10s escritorio
 
-    // Ocultar pantalla de carga después del tiempo determinado
-    setTimeout(hideLoadingScreen, loadingDuration);
+    // Obtener el iframe activo
+    const landscapeIframe = document.getElementById('landscapeIframe');
+    const portraitIframe = document.getElementById('portraitIframe');
+    const activeIframe = (isPortrait || isMobile) ? portraitIframe : landscapeIframe;
+
+    // Tiempo mínimo transcurrido
+    setTimeout(() => {
+        minTimeElapsed = true;
+        checkAndHideLoading();
+    }, minLoadingTime);
+
+    // Detectar cuando el iframe se carga
+    activeIframe.addEventListener('load', function() {
+        iframeLoaded = true;
+        checkAndHideLoading();
+    });
+
+    // Timeout máximo por si el iframe no carga
+    setTimeout(() => {
+        iframeLoaded = true;
+        minTimeElapsed = true;
+        hideLoadingScreen();
+    }, maxLoadingTime);
 });
 
 // Verificar cuando cambia la orientación
