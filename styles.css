@@ -84,16 +84,26 @@ iframe {
     display: block;
 }
 
-/* Ocultar iframes por defecto */
+/* Ocultar iframes por defecto - usar visibility en vez de display para que carguen en segundo plano */
 .iframe-landscape,
 .iframe-portrait {
-    display: none;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Mostrar iframe correcto seg�n orientaci�n */
 .iframe-landscape.active,
 .iframe-portrait.active {
-    display: block;
+    visibility: visible;
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* Bot�n flotante para tutorial */
