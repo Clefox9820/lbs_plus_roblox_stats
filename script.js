@@ -71,51 +71,19 @@ function hideLoadingScreen() {
     }, 500);
 }
 
-// Variables para controlar la carga
-let iframeLoaded = false;
-let minTimeElapsed = false;
-
-// Función que se ejecuta cuando ambas condiciones se cumplen
-function checkAndHideLoading() {
-    if (iframeLoaded && minTimeElapsed) {
-        hideLoadingScreen();
-    }
-}
-
 // Inicializar cuando la página cargue
 window.addEventListener('DOMContentLoaded', function() {
     adjustViewportHeight();
     checkOrientationAndUpdateIframe();
 
-    // Determinar duración mínima según orientación
+    // Determinar duración de pantalla de carga según orientación
+    // El iframe se carga en paralelo debajo de la pantalla de carga
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
     const isMobile = window.innerWidth <= 768;
-    const minLoadingTime = (isPortrait || isMobile) ? 3000 : 2000; // 3s móvil/vertical, 2s escritorio
-    const maxLoadingTime = (isPortrait || isMobile) ? 12000 : 10000; // Máximo 12s móvil, 10s escritorio
+    const loadingDuration = (isPortrait || isMobile) ? 8000 : 5000; // 8s móvil/vertical, 5s escritorio
 
-    // Obtener el iframe activo
-    const landscapeIframe = document.getElementById('landscapeIframe');
-    const portraitIframe = document.getElementById('portraitIframe');
-    const activeIframe = (isPortrait || isMobile) ? portraitIframe : landscapeIframe;
-
-    // Tiempo mínimo transcurrido
-    setTimeout(() => {
-        minTimeElapsed = true;
-        checkAndHideLoading();
-    }, minLoadingTime);
-
-    // Detectar cuando el iframe se carga
-    activeIframe.addEventListener('load', function() {
-        iframeLoaded = true;
-        checkAndHideLoading();
-    });
-
-    // Timeout máximo por si el iframe no carga
-    setTimeout(() => {
-        iframeLoaded = true;
-        minTimeElapsed = true;
-        hideLoadingScreen();
-    }, maxLoadingTime);
+    // Ocultar pantalla de carga después del tiempo determinado
+    setTimeout(hideLoadingScreen, loadingDuration);
 });
 
 // Verificar cuando cambia la orientación
