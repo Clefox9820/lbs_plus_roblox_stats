@@ -80,7 +80,7 @@ window.addEventListener('DOMContentLoaded', function() {
     // El iframe se carga en paralelo debajo de la pantalla de carga
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
     const isMobile = window.innerWidth <= 768;
-    const loadingDuration = (isPortrait || isMobile) ? 8000 : 5000; // 8s móvil/vertical, 5s escritorio
+    const loadingDuration = (isPortrait || isMobile) ? 15000 : 5000; // 15s móvil/vertical, 5s escritorio
 
     // Ocultar pantalla de carga después del tiempo determinado
     setTimeout(hideLoadingScreen, loadingDuration);
