@@ -1,0 +1,253 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Pantalla de carga */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-screen.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    animation: fadeInScale 1s ease-in-out infinite alternate;
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0.7;
+        transform: scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+.iframe-container {
+    width: 100%;
+    height: 100dvh; /* Dynamic viewport height */
+    height: 100vh; /* Fallback para navegadores antiguos */
+    overflow: auto;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 100dvh;
+    min-height: 100vh;
+    border: 0;
+    display: block;
+}
+
+/* Ocultar iframes por defecto - usar visibility en vez de display para que carguen en segundo plano */
+.iframe-landscape,
+.iframe-portrait {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Mostrar iframe correcto seg�n orientaci�n */
+.iframe-landscape.active,
+.iframe-portrait.active {
+    visibility: visible;
+    position: relative;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Bot�n flotante para tutorial */
+.tutorial-button {
+    position: fixed;
+    bottom: 120px;
+    right: 30px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.tutorial-button:hover {
+    background-color: #5a6268;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.tutorial-button .close-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.tutorial-button .close-icon:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: scale(1.15);
+}
+
+.tutorial-button.hidden {
+    display: none;
+}
+
+/* Modal del tutorial */
+.tutorial-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.tutorial-modal.show {
+    display: flex;
+}
+
+.tutorial-content {
+    background-color: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.tutorial-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tutorial-header h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #1a1a1a;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.close-button:hover {
+    background-color: #f5f5f5;
+    color: #1a1a1a;
+}
+
+.tutorial-iframe-container {
+    flex: 1;
+    overflow: hidden;
+}
+
+.tutorial-iframe-container iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 600px;
+    border: 0;
+}
+
+/* Responsivo para m�viles */
+@media (max-width: 768px) {
+    iframe {
+        min-width: 100vw;
+        min-height: calc(100dvh - env(safe-area-inset-bottom));
+        min-height: calc(100vh - env(safe-area-inset-bottom));
+    }
+
+    .tutorial-button {
+        bottom: 90px;
+        right: 20px;
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+
+    .tutorial-modal {
+        padding: 10px;
+    }
+
+    .tutorial-content {
+        max-height: 95vh;
+        border-radius: 8px;
+    }
+
+    .tutorial-header {
+        padding: 16px 20px;
+    }
+
+    .tutorial-header h3 {
+        font-size: 18px;
+    }
+
+    .tutorial-iframe-container iframe {
+        min-height: 500px;
+    }
+}
