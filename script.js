@@ -53,30 +53,16 @@ function checkOrientationAndUpdateIframe() {
     }
 }
 
-// Verificar orientación al cargar
-function checkOrientation() {
-    const overlay = document.getElementById('orientationOverlay');
-    const isPortrait = window.matchMedia("(orientation: portrait)").matches;
-    const isMobile = window.innerWidth <= 768;
-
-    // Mostrar overlay solo si es móvil en vertical y no se ha ocultado antes
-    if (isPortrait && isMobile && !sessionStorage.getItem('orientationDismissed')) {
-        overlay.classList.add('show');
-    } else {
-        overlay.classList.remove('show');
-    }
-}
-
-function hideOverlay() {
-    const overlay = document.getElementById('orientationOverlay');
-    overlay.classList.remove('show');
-    sessionStorage.setItem('orientationDismissed', 'true');
+// Función para ocultar el botón del tutorial (temporalmente, se restaura al recargar)
+function hideTutorialButton(event) {
+    event.stopPropagation(); // Evitar que se abra el tutorial al cerrar
+    const button = document.getElementById('tutorialButton');
+    button.classList.add('hidden');
 }
 
 // Inicializar cuando la página cargue
 window.addEventListener('DOMContentLoaded', function() {
     adjustViewportHeight();
-    checkOrientation();
     checkOrientationAndUpdateIframe();
 });
 
@@ -84,7 +70,6 @@ window.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('orientationchange', function() {
     setTimeout(() => {
         adjustViewportHeight();
-        checkOrientation();
         checkOrientationAndUpdateIframe();
     }, 100);
 });
@@ -92,7 +77,6 @@ window.addEventListener('orientationchange', function() {
 // También verificar al redimensionar (para navegadores que no soportan orientationchange)
 window.addEventListener('resize', () => {
     adjustViewportHeight();
-    checkOrientation();
     checkOrientationAndUpdateIframe();
 });
 

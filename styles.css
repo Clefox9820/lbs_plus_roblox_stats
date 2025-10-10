@@ -30,18 +30,18 @@ iframe {
     display: none;
 }
 
-/* Mostrar iframe correcto según orientación */
+/* Mostrar iframe correcto segï¿½n orientaciï¿½n */
 .iframe-landscape.active,
 .iframe-portrait.active {
     display: block;
 }
 
-/* Botón flotante para tutorial */
+/* Botï¿½n flotante para tutorial */
 .tutorial-button {
     position: fixed;
-    bottom: 30px;
+    bottom: 120px;
     right: 30px;
-    background-color: #4285f4;
+    background-color: #6c757d;
     color: white;
     border: none;
     border-radius: 50px;
@@ -49,23 +49,39 @@ iframe {
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.4);
-    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    z-index: 1000;
     transition: all 0.3s ease;
 }
 
 .tutorial-button:hover {
-    background-color: #357ae8;
-    box-shadow: 0 6px 16px rgba(66, 133, 244, 0.5);
+    background-color: #5a6268;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
     transform: translateY(-2px);
 }
 
-.tutorial-button::before {
-    content: "=Ö";
-    font-size: 20px;
+.tutorial-button .close-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.tutorial-button .close-icon:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    transform: scale(1.15);
+}
+
+.tutorial-button.hidden {
+    display: none;
 }
 
 /* Modal del tutorial */
@@ -145,93 +161,7 @@ iframe {
     border: 0;
 }
 
-/* Mensaje de orientación */
-.orientation-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100dvh; /* Dynamic viewport height */
-    height: 100vh; /* Fallback */
-    background-color: #1a1a1a;
-    color: white;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    text-align: center;
-    padding: 40px 20px;
-}
-
-.orientation-overlay.show {
-    display: flex;
-}
-
-.rotate-icon {
-    font-size: 80px;
-    margin-bottom: 30px;
-    animation: rotate 2s infinite ease-in-out;
-}
-
-@keyframes rotate {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(90deg); }
-}
-
-.orientation-overlay h2 {
-    font-size: 26px;
-    margin-bottom: 15px;
-    font-weight: 600;
-}
-
-.orientation-overlay p {
-    font-size: 16px;
-    opacity: 0.8;
-    margin-bottom: 40px;
-    line-height: 1.5;
-    max-width: 300px;
-}
-
-.btn-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 280px;
-}
-
-.btn {
-    padding: 16px 32px;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background-color: #4285f4;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #357ae8;
-}
-
-.btn-secondary {
-    background-color: transparent;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.btn-secondary:hover {
-    border-color: rgba(255, 255, 255, 0.6);
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* Responsivo para móviles */
+/* Responsivo para mï¿½viles */
 @media (max-width: 768px) {
     iframe {
         min-width: 100vw;
@@ -240,7 +170,7 @@ iframe {
     }
 
     .tutorial-button {
-        bottom: 20px;
+        bottom: 90px;
         right: 20px;
         padding: 14px 20px;
         font-size: 14px;

@@ -9,21 +9,6 @@
 </head>
 
 <body>
-    <!-- Overlay de orientación -->
-    <div class="orientation-overlay" id="orientationOverlay">
-        <div class="rotate-icon">📱 ↻</div>
-        <h2>Mejor experiencia en horizontal</h2>
-        <p>Te recomendamos rotar tu dispositivo para ver el reporte completo sin necesidad de desplazarte</p>
-        <div class="btn-container">
-            <button class="btn btn-primary" onclick="hideOverlay()">
-                Ver de todas formas
-            </button>
-            <button class="btn btn-secondary" onclick="location.reload()">
-                Entendido
-            </button>
-        </div>
-    </div>
-
     <!-- Contenedor del iframe principal (Looker Studio) -->
     <div class="iframe-container">
         <!-- Iframe para orientación horizontal -->
@@ -46,8 +31,9 @@
     </div>
 
     <!-- Botón flotante para abrir tutorial -->
-    <button class="tutorial-button" onclick="openTutorial()">
-        Ver Tutorial
+    <button class="tutorial-button" id="tutorialButton">
+        <span onclick="openTutorial()">Ver Tutorial</span>
+        <span class="close-icon" onclick="hideTutorialButton(event)" title="Cerrar">✕</span>
     </button>
 
     <!-- Modal del tutorial -->
