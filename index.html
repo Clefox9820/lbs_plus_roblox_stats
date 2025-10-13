@@ -8,7 +8,7 @@
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy" content="
         default-src 'self';
-        script-src 'self';
+        script-src 'self' 'unsafe-inline';
         style-src 'self' 'unsafe-inline';
         frame-src https://lookerstudio.google.com https://scribehow.com;
         img-src 'self' data: https:;
@@ -68,16 +68,16 @@
 
     <!-- Botón flotante para abrir tutorial -->
     <button class="tutorial-button" id="tutorialButton">
-        <span id="openTutorialBtn">Ver Tutorial</span>
-        <span class="close-icon" id="closeTutorialBtn" title="Cerrar">✕</span>
+        <span onclick="openTutorial()">Ver Tutorial</span>
+        <span class="close-icon" onclick="hideTutorialButton(event)" title="Cerrar">✕</span>
     </button>
 
     <!-- Modal del tutorial -->
-    <div class="tutorial-modal" id="tutorialModal">
+    <div class="tutorial-modal" id="tutorialModal" onclick="closeTutorialOnOutside(event)">
         <div class="tutorial-content">
             <div class="tutorial-header">
                 <h3>Tutorial: Cómo Filtrar Estadísticas de Roblox</h3>
-                <button class="close-button" id="closeModalBtn">&times;</button>
+                <button class="close-button" onclick="closeTutorial()">&times;</button>
             </div>
             <div class="tutorial-iframe-container">
                 <!-- Tutorial para orientación horizontal -->

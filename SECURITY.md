@@ -9,7 +9,7 @@ Este proyecto implementa una Content Security Policy (CSP) estricta para protege
 ```html
 <meta http-equiv="Content-Security-Policy" content="
     default-src 'self';
-    script-src 'self';
+    script-src 'self' 'unsafe-inline';
     style-src 'self' 'unsafe-inline';
     frame-src https://lookerstudio.google.com https://scribehow.com;
     img-src 'self' data: https:;
@@ -28,7 +28,7 @@ Este proyecto implementa una Content Security Policy (CSP) estricta para protege
 | Directiva | Valor | Propósito |
 |-----------|-------|-----------|
 | `default-src` | `'self'` | Por defecto, solo permite recursos del mismo origen |
-| `script-src` | `'self'` | ✅ Solo permite scripts del mismo origen (sin inline) |
+| `script-src` | `'self' 'unsafe-inline'` | Permite scripts propios e inline (para onclick) |
 | `style-src` | `'self' 'unsafe-inline'` | Permite estilos propios e inline |
 | `frame-src` | `https://lookerstudio.google.com https://scribehow.com` | Solo permite iframes de Looker Studio y ScribeHow |
 | `img-src` | `'self' data: https:` | Permite imágenes propias, data URIs y HTTPS |
@@ -40,15 +40,13 @@ Este proyecto implementa una Content Security Policy (CSP) estricta para protege
 | `frame-ancestors` | `'none'` | Previene que el sitio sea embebido en iframes (clickjacking) |
 | `upgrade-insecure-requests` | - | Actualiza automáticamente HTTP a HTTPS |
 
-### ✅ Mejoras de Seguridad Implementadas
+### ⚠️ Nota sobre 'unsafe-inline'
 
-**Scripts inline eliminados**: Todos los atributos `onclick` han sido removidos del HTML y reemplazados con event listeners en JavaScript.
+Actualmente se permite `'unsafe-inline'` para scripts debido a:
+- Uso de atributos `onclick` en HTML
+- Estilos inline en algunos elementos
 
-**Nota sobre 'unsafe-inline' en styles**: Se mantiene `'unsafe-inline'` para estilos (CSS) debido a:
-- Estilos inline necesarios para algunos elementos dinámicos
-- No representa un riesgo de seguridad significativo
-
-**CSP de máxima seguridad**: `script-src 'self'` sin `'unsafe-inline'` proporciona la máxima protección contra XSS.
+**Recomendación futura**: Eliminar los inline handlers y remover `'unsafe-inline'` para mayor seguridad.
 
 ## Cabeceras de Seguridad Adicionales
 
