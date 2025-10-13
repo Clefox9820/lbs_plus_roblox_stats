@@ -1,8 +1,5 @@
-// URLs de los iframes de Looker Studio
-const IFRAME_URLS = {
-    landscape: 'https://lookerstudio.google.com/embed/reporting/0d7bab96-b8a8-4390-9037-054ab4452114/page/p_so7gf6u0wd',
-    portrait: 'https://lookerstudio.google.com/embed/reporting/33a2ab98-7514-4c54-80a0-ebdc2dc35bd5/page/W1IbF'
-};
+// Configuration is now loaded from config.js
+// URLs are accessed via CONFIG.reports.landscape.url and CONFIG.reports.portrait.url
 
 // Funciones para el modal del tutorial
 function openTutorial() {
@@ -79,23 +76,100 @@ function hideTutorialButton(event) {
 // Ocultar pantalla de carga
 function hideLoadingScreen() {
     const loadingScreen = document.getElementById('loadingScreen');
-    loadingScreen.classList.add('hide');
+    if (loadingScreen) {
+        loadingScreen.classList.add('hide');
 
-    // Eliminar del DOM después de la transición
-    setTimeout(() => {
-        loadingScreen.style.display = 'none';
-    }, 500);
+        // Eliminar del DOM después de la transición
+        setTimeout(() => {
+            loadingScreen.style.display = 'none';
+        }, 500);
+    }
+}
+
+// Función para actualizar las URLs de los iframes dinámicamente
+function updateIframeSources() {
+    // Verificar que CONFIG esté disponible
+    if (typeof CONFIG === 'undefined') {
+        console.error('CONFIG not loaded. Make sure config.js is included before script.js');
+        return;
+    }
+
+    // Actualizar iframes de Looker Studio
+    const landscapeIframe = document.getElementById('landscapeIframe');
+    const portraitIframe = document.getElementById('portraitIframe');
+
+    if (landscapeIframe && CONFIG.reports.landscape) {
+        landscapeIframe.src = CONFIG.reports.landscape.url;
+    }
+
+    if (portraitIframe && CONFIG.reports.portrait) {
+        portraitIframe.src = CONFIG.reports.portrait.url;
+    }
+
+    // Actualizar iframes de tutorial
+    const tutorialLandscape = document.getElementById('tutorialLandscape');
+    const tutorialPortrait = document.getElementById('tutorialPortrait');
+
+    if (tutorialLandscape && CONFIG.tutorials.landscape) {
+        tutorialLandscape.src = CONFIG.tutorials.landscape.url;
+    }
+
+    if (tutorialPortrait && CONFIG.tutorials.portrait) {
+        tutorialPortrait.src = CONFIG.tutorials.portrait.url;
+    }
 }
 
 // Inicializar cuando la página cargue
 window.addEventListener('DOMContentLoaded', function() {
+    // Actualizar las URLs de los iframes desde la configuración
+    updateIframeSources();
+
     adjustViewportHeight();
     checkOrientationAndUpdateIframe();
 
+    // Configurar event listeners seguros (sin inline handlers)
+    setupEventListeners();
+
     // Ocultar pantalla de carga después de 4 segundos
     // Looker Studio tiene su propia pantalla de carga interna
-    setTimeout(hideLoadingScreen, 4000);
+    const loadingDuration = (typeof CONFIG !== 'undefined' && CONFIG.loadingScreen)
+        ? CONFIG.loadingScreen.duration
+        : 4000;
+    setTimeout(hideLoadingScreen, loadingDuration);
 });
+
+// Función para configurar todos los event listeners
+function setupEventListeners() {
+    // Abrir tutorial al hacer clic en "Ver Tutorial"
+    const openBtn = document.getElementById('openTutorialBtn');
+    if (openBtn) {
+        openBtn.addEventListener('click', openTutorial);
+    }
+
+    // Cerrar botón del tutorial (la X)
+    const closeBtn = document.getElementById('closeTutorialBtn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function(event) {
+            hideTutorialButton(event);
+        });
+    }
+
+    // Cerrar modal con el botón X del modal
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeTutorial);
+    }
+
+    // Cerrar modal al hacer clic fuera de él
+    const modal = document.getElementById('tutorialModal');
+    if (modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target.id === 'tutorialModal') {
+                closeTutorial();
+            }
+        });
+    }
+}
 
 // Verificar cuando cambia la orientación
 window.addEventListener('orientationchange', function() {
