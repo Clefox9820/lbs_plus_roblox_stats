@@ -127,6 +127,9 @@ window.addEventListener('DOMContentLoaded', function() {
     adjustViewportHeight();
     checkOrientationAndUpdateIframe();
 
+    // Configurar event listeners seguros (sin inline handlers)
+    setupEventListeners();
+
     // Ocultar pantalla de carga después de 4 segundos
     // Looker Studio tiene su propia pantalla de carga interna
     const loadingDuration = (typeof CONFIG !== 'undefined' && CONFIG.loadingScreen)
@@ -134,6 +137,39 @@ window.addEventListener('DOMContentLoaded', function() {
         : 4000;
     setTimeout(hideLoadingScreen, loadingDuration);
 });
+
+// Función para configurar todos los event listeners
+function setupEventListeners() {
+    // Abrir tutorial al hacer clic en "Ver Tutorial"
+    const openBtn = document.getElementById('openTutorialBtn');
+    if (openBtn) {
+        openBtn.addEventListener('click', openTutorial);
+    }
+
+    // Cerrar botón del tutorial (la X)
+    const closeBtn = document.getElementById('closeTutorialBtn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function(event) {
+            hideTutorialButton(event);
+        });
+    }
+
+    // Cerrar modal con el botón X del modal
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', closeTutorial);
+    }
+
+    // Cerrar modal al hacer clic fuera de él
+    const modal = document.getElementById('tutorialModal');
+    if (modal) {
+        modal.addEventListener('click', function(event) {
+            if (event.target.id === 'tutorialModal') {
+                closeTutorial();
+            }
+        });
+    }
+}
 
 // Verificar cuando cambia la orientación
 window.addEventListener('orientationchange', function() {
