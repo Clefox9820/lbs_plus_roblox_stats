@@ -1,2 +1,9 @@
 /.claude
 /.claude.backup-2025-10-13T18-03-32
+/.claude
+.claude/settings.local.json
+*.json
+/.claude
+.claude/settings.local.json
+.claude/settings.local.json
+CLAUDE.md
