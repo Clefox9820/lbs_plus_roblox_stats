@@ -39,17 +39,33 @@ function adjustViewportHeight() {
 // Función para verificar si el dispositivo está en orientación horizontal o vertical
 function checkOrientationAndUpdateIframe() {
     const isPortrait = window.matchMedia("(orientation: portrait)").matches;
+
+    // Iframes de Looker Studio
     const landscapeIframe = document.getElementById('landscapeIframe');
     const portraitIframe = document.getElementById('portraitIframe');
 
+    // Iframes de tutoriales
+    const tutorialLandscape = document.getElementById('tutorialLandscape');
+    const tutorialPortrait = document.getElementById('tutorialPortrait');
+
     if (isPortrait) {
-        // Mostrar iframe vertical
+        // Mostrar iframes verticales
         landscapeIframe.classList.remove('active');
         portraitIframe.classList.add('active');
+
+        if (tutorialLandscape && tutorialPortrait) {
+            tutorialLandscape.classList.remove('active');
+            tutorialPortrait.classList.add('active');
+        }
     } else {
-        // Mostrar iframe horizontal
+        // Mostrar iframes horizontales
         portraitIframe.classList.remove('active');
         landscapeIframe.classList.add('active');
+
+        if (tutorialLandscape && tutorialPortrait) {
+            tutorialPortrait.classList.remove('active');
+            tutorialLandscape.classList.add('active');
+        }
     }
 }
 

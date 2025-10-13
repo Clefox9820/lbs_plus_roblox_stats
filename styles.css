@@ -206,6 +206,7 @@ iframe {
 .tutorial-iframe-container {
     flex: 1;
     overflow: hidden;
+    position: relative;
 }
 
 .tutorial-iframe-container iframe {
@@ -213,6 +214,21 @@ iframe {
     height: 100%;
     min-height: 600px;
     border: 0;
+}
+
+/* Ocultar tutoriales por defecto - usar display none para no ocupar espacio */
+.tutorial-iframe-landscape,
+.tutorial-iframe-portrait {
+    display: none;
+}
+
+/* Mostrar tutorial correcto según orientación */
+.tutorial-iframe-landscape.active {
+    display: block;
+}
+
+.tutorial-iframe-portrait.active {
+    display: block;
 }
 
 /* Responsivo para m�viles */
