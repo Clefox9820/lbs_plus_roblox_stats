@@ -22,7 +22,6 @@
         <iframe
             id="landscapeIframe"
             class="iframe-landscape"
-            src="https://lookerstudio.google.com/embed/reporting/0d7bab96-b8a8-4390-9037-054ab4452114/page/p_so7gf6u0wd"
             loading="eager"
             allowfullscreen
             sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
@@ -32,7 +31,6 @@
         <iframe
             id="portraitIframe"
             class="iframe-portrait"
-            src="https://lookerstudio.google.com/embed/reporting/33a2ab98-7514-4c54-80a0-ebdc2dc35bd5/page/W1IbF"
             loading="eager"
             allowfullscreen
             sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox">
@@ -53,7 +51,26 @@
                 <button class="close-button" onclick="closeTutorial()">&times;</button>
             </div>
             <div class="tutorial-iframe-container">
-                <iframe src="https://scribehow.com/embed/How_to_Filter_Roblox_Stats_by_Campus_and_Role__ehFQwp9_Qqe4nZbLjHrvbQ?skipIntro=true" allow="fullscreen"></iframe>
+                <!-- Tutorial para orientación horizontal -->
+                <iframe
+                    id="tutorialLandscape"
+                    class="tutorial-iframe-landscape"
+                    src="https://scribehow.com/embed/How_to_Filter_Roblox_Stats_by_Campus_and_Role__ehFQwp9_Qqe4nZbLjHrvbQ?skipIntro=true"
+                    allow="fullscreen"
+                    loading="lazy">
+                </iframe>
+
+                <!-- Tutorial para orientación vertical -->
+                <iframe
+                    id="tutorialPortrait"
+                    class="tutorial-iframe-portrait"
+                    src="https://scribehow.com/embed/How_to_Filter_Data_in_Looker_Studio__u9fE9V6FQ6yMSwmV_7lKcw?skipIntro=true"
+                    width="100%"
+                    height="640"
+                    allow="fullscreen"
+                    style="aspect-ratio: 1 / 1; border: 0; min-height: 480px"
+                    loading="lazy">
+                </iframe>
             </div>
         </div>
     </div>
