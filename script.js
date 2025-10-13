@@ -53,11 +53,6 @@ function checkOrientationAndUpdateIframe() {
         landscapeIframe.classList.remove('active');
         portraitIframe.classList.add('active');
 
-        // Cargar el src solo si no está cargado
-        if (!portraitIframe.src) {
-            portraitIframe.src = IFRAME_URLS.portrait;
-        }
-
         if (tutorialLandscape && tutorialPortrait) {
             tutorialLandscape.classList.remove('active');
             tutorialPortrait.classList.add('active');
@@ -66,11 +61,6 @@ function checkOrientationAndUpdateIframe() {
         // Mostrar iframes horizontales
         portraitIframe.classList.remove('active');
         landscapeIframe.classList.add('active');
-
-        // Cargar el src solo si no está cargado
-        if (!landscapeIframe.src) {
-            landscapeIframe.src = IFRAME_URLS.landscape;
-        }
 
         if (tutorialLandscape && tutorialPortrait) {
             tutorialPortrait.classList.remove('active');

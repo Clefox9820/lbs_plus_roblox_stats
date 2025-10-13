@@ -216,22 +216,19 @@ iframe {
     border: 0;
 }
 
-/* Ocultar tutoriales por defecto */
+/* Ocultar tutoriales por defecto - usar display none para no ocupar espacio */
 .tutorial-iframe-landscape,
 .tutorial-iframe-portrait {
     display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
 }
 
 /* Mostrar tutorial correcto según orientación */
-.tutorial-iframe-landscape.active,
+.tutorial-iframe-landscape.active {
+    display: block;
+}
+
 .tutorial-iframe-portrait.active {
     display: block;
-    position: relative;
 }
 
 /* Responsivo para m�viles */
