@@ -81,7 +81,7 @@ iframe {
     pointer-events: none;
 }
 
-/* Mostrar iframe correcto seg�n orientaci�n */
+/* Mostrar iframe correcto según orientación */
 .iframe-landscape.active,
 .iframe-portrait.active {
     visibility: visible;
@@ -90,7 +90,7 @@ iframe {
     pointer-events: auto;
 }
 
-/* Bot�n flotante para tutorial */
+/* Botón flotante para tutorial */
 .tutorial-button {
     position: fixed;
     bottom: 120px;
@@ -231,7 +231,7 @@ iframe {
     display: block;
 }
 
-/* Responsivo para m�viles */
+/* Responsivo para móviles */
 @media (max-width: 768px) {
     iframe {
         min-width: 100vw;
